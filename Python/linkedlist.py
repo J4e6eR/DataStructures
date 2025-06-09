@@ -24,6 +24,8 @@ def insert(index, data, curNode: Node) -> Node:
     if prevNode != None: prevNode.next = newNode # Represents the head node
     if nextNode != None: nextNode.prev = newNode # Represents the tail node
 
+    return newNode
+
   newNode = Node(data)
   headNode = newNode
   # Its a head
@@ -39,7 +41,8 @@ def insert(index, data, curNode: Node) -> Node:
   position = 0
   while(curNode != None):
     if position + 1 == index:
-      _insert(newNode, curNode, curNode.next)
+      insert_node = _insert(newNode, curNode, curNode.next)
+      return insert_node
     
     position += 1
     curNode = curNode.next  
