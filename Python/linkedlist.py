@@ -9,7 +9,7 @@ class Node:
 
 
 # Insert the data at a particular index
-def insert(index, data, curNode: Node):
+def insert(index, data, curNode: Node) -> Node:
   """
                   newNode
   head --> node 1  --> node 2 --> newNode
@@ -28,6 +28,11 @@ def insert(index, data, curNode: Node):
   headNode = newNode
   # Its a head
   if index == 0:
+      
+      # TODO: Do we need this??
+      # if curNode == None:
+      #   _insert(newNode, None, None)  
+      
       _insert(newNode, None, curNode.next)
       return headNode
     
@@ -41,7 +46,7 @@ def insert(index, data, curNode: Node):
 
   return None
 
-def readNode(headNode: Node, index: int):
+def readNode(headNode: Node, index: int) -> Node:
   position = 0
 
   while (headNode != None):
@@ -53,7 +58,7 @@ def readNode(headNode: Node, index: int):
   # If index is much bigger than the actual size
   return None
 
-def delete(headNode: Node, index: int):
+def delete(headNode: Node, index: int) -> Node:
   """
   head -> node 1 -> node 2
   case 1: head delete
@@ -63,7 +68,10 @@ def delete(headNode: Node, index: int):
   case 3: Any other index
     head -> [del] -> node 2
   """
-  
+
+  if headNode == None:
+    return None
+
   if index == 0:
     # Head node 
     head = headNode.next
@@ -83,7 +91,7 @@ def delete(headNode: Node, index: int):
 
 
 # Traverse through the entire linkedlist
-def traverse(headNode, print_node:bool = False, len: bool = False):
+def traverse(headNode, print_node:bool = False, len: bool = False) -> int:
   position = 0
   
   while (headNode != None):
@@ -93,10 +101,11 @@ def traverse(headNode, print_node:bool = False, len: bool = False):
     headNode = headNode.next
   
   if len: return position
+  return None
 
 
 # Length of the linkedlist
-def len(headNode: Node): return traverse(headNode, print_node = False, len=True)
+def len(headNode: Node) -> int: return traverse(headNode, print_node = False, len=True)
 
 if __name__ == "__main__":
   head = Node(b"hello")
