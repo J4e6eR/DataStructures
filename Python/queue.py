@@ -1,6 +1,5 @@
 from linkedlist import Node, insert, delete, traverse
 
-# TODO: Build a queue on top of linked list
 class Queue:
   # NOTE: We have to create the head node at the start while defining the Queue object
   def __init__(self, data):
