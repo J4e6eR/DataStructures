@@ -9,7 +9,7 @@ class Queue:
   def append(self, data):
     # NOTE: Hacking !!! to get the value added to the tail as the indexes are relative to the node passed.
     self.tail = insert(1, data, self.tail)
-    print("Tail while appending:", self.tail)
+    # print("Tail while appending:", self.tail)
   
   def pop(self):
     # POP form head as QUEUE is a FIFO data structure
