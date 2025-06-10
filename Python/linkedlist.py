@@ -61,7 +61,7 @@ def readNode(headNode: Node, index: int) -> Node:
   # If index is much bigger than the actual size
   return None
 
-def delete(headNode: Node, index: int) -> Node:
+def delete(headNode: Node, index: int, tail: bool = False) -> Node:
   """
   head -> node 1 -> node 2
   case 1: head delete
@@ -76,9 +76,20 @@ def delete(headNode: Node, index: int) -> Node:
     return None
 
   if index == 0:
-    # Head node 
-    head = headNode.next
-    head.prev = None 
+    
+    if not tail:
+      # Head node 
+      prevToHeadNode = headNode.prev
+      head = headNode.next
+      head.prev = prevToHeadNode 
+    
+    elif tail == True:
+      # This is a tail node
+      # NOTE: Here head node represents the tail node
+      nextToHeadNode = headNode.next
+      head = headNode.prev 
+      head.next = nextToHeadNode
+    
     return head
 
   toDelNode = readNode(headNode, index)
