@@ -13,10 +13,8 @@ class Stack:
   
   def pop(self):
     # POP form tail as Stack is a FILO data structure
-    print("Tail before deletion:", self.tail)
     deletedNode = delete(self.tail, 0, tail=True)
     assert deletedNode != None, "The stack is empty" 
-    print("Tail after deletion:", self.tail)
     self.tail.prev = deletedNode.prev
     return deletedNode
 
