@@ -12,9 +12,32 @@ class BSTNode:
 
 # Insertion would be done based on integer value whether its less than or greater than
 def insert(rootNode: BSTNode, data: int):
+  # TODO: Add a way by which we can have self-balancing trees while insertion 
+  # TODO: Add balancing using rotations
+  
   """
   newNode added in parameters for enabling recursion
   """
+
+  # FOR AVL Trees 
+  def _leftRotate(unbalancedNode: BSTNode):
+    x = unbalancedNode.left
+    T2 = x.right 
+
+    x.right = unbalancedNode
+    unbalancedNode.left = T2
+
+    # TODO: Modify heights if wanted
+
+
+  def _rightRotate(unbalancedNode: BSTNode):
+    y = unbalancedNode.right
+    T2 = y.left
+
+    y.left = unbalancedNode
+    unbalancedNode.right = T2
+
+    # TODO: Modify heights here
 
   if rootNode is None:
     rootNode = BSTNode(data)
@@ -23,11 +46,20 @@ def insert(rootNode: BSTNode, data: int):
   else:
     rootNode.right = insert(rootNode.right, data)
 
+  balanceFactor = calcHeight(rootNode.right) - calcHeight(rootNode.left)
+  
+  
+  # Left Left rotations
+  # Right Right rotations
+  # Left Right rotations
+  # Right Left rotations
+
   return rootNode
 
+# TODO: Add a way to delete the node and also have the tree balancec
+def delete(): pass
+
 def DEBUG(data): print(data)
-
-
 
 # Traversing the entire tree
 def traversal(rootNode: BSTNode, traversalTechnique: str = "bfs", technique: str = 'level', debug: bool = False):
@@ -55,8 +87,8 @@ def traversal(rootNode: BSTNode, traversalTechnique: str = "bfs", technique: str
       # Prevents adding the root node twice in the queue, especially while creating it.
       traversalQueue.append(rootNode)
     
-    _BFSTraversal(rootNode.left, True, traversalQueue)
-    _BFSTraversal(rootNode.right, True, traversalQueue)
+    _BFSTraversal(rootNode.left, debug, traversalQueue)
+    _BFSTraversal(rootNode.right, debug, traversalQueue)
     
     try:
       bstNode = traversalQueue.pop()
@@ -72,14 +104,14 @@ def traversal(rootNode: BSTNode, traversalTechnique: str = "bfs", technique: str
       if rootNode == None:
         return
       _inorder(rootNode.left, debug)
-      DEBUG(rootNode)
+      DEBUG(rootNode) if debug is True else ""
       _inorder(rootNode.right, debug)
 
     # pre-order  ->  <root> <left subtree> <right subtree>
     def _preorder(rootNode: BSTNode, debug: bool  = False):
       if rootNode == None:
         return
-      DEBUG(rootNode)
+      DEBUG(rootNode) if debug is True else ""
       _preorder(rootNode.left, debug)
       _preorder(rootNode.right)
 
@@ -89,7 +121,7 @@ def traversal(rootNode: BSTNode, traversalTechnique: str = "bfs", technique: str
         return
       _postorder(rootNode.left, debug)
       _postorder(rootNode.right, debug)
-      DEBUG(rootNode)
+      DEBUG(rootNode) if debug is True else ""
 
     match technique:
       case 'in':
@@ -112,22 +144,22 @@ def traversal(rootNode: BSTNode, traversalTechnique: str = "bfs", technique: str
     case 'bfs':
       _BFSTraversal(rootNode, debug, None)
     case 'dfs':
-      _DFSTraversal(rootNode, technique)
+      _DFSTraversal(rootNode, technique, debug)
     case _:
       print("No known way to traverse.")
 
-
+# TODO: Better way is to store the height as a variable for O(1) complexity 
 def calcHeight(rootNode: BSTNode):
   """
   <left node> <parent node> <right node> 
   parent node is the root node
 
+  Probably takes like O(n) where n is the total nunmber of nodes.
   """
 
   # Base condition -> When we reach leaf node
-  if rootNode.left == None or rootNode.right == None:
-    return 0
-
+  if rootNode == None: return 0
+  if rootNode.left == None or rootNode.right == None: return 0
 
   leftHeight = calcHeight(rootNode.left)
   rightHeight = calcHeight(rootNode.right)
